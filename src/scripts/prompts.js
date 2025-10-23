@@ -242,7 +242,8 @@ export const DEFAULT_PROMPTS = {
   ,
   TEST_DATA_ONLY: `
     Instructions:
-    - Generate ONLY Test data.
+    - [CRITICAL] Generate ONLY Test data. 
+    - [MANDATORY] DO NOT include prompt or any code or explanations or how you generated the data.
     - [CRITICAL] Generate data ONLY for the fields in the DOM [DO NOT add extra fields].
     - Identify field types based on labels, names, ids, and input types.
       - For dropdowns, use only the options available in the DOM.
@@ -280,7 +281,7 @@ export const DEFAULT_PROMPTS = {
     - Audience: QA Engineers who only need Test data.
 
     Output Format:
-    - Simple text beautifully structured.
+    - ONLY Test Data in a beautify structured Simple text format
 
     Tone:
     - Clear, structured, executable.

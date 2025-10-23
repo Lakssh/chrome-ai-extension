@@ -109,6 +109,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       groq: [
         { value: 'meta-llama/llama-4-maverick-17b-128e-instruct', label: 'meta-llama/llama-4-maverick-17b-128e-instruct' },
         { value: 'openai/gpt-oss-120b', label: 'openai/gpt-oss-120b' },
+        { value: 'qwen/qwen3-32b', label: 'gqwen/qwen3-32b' },
+        { value: 'llama-3.3-70b-versatile', label: 'llama-3.3-70b-versatile' },
 
       ],
       openai: [
