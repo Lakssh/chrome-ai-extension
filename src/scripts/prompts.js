@@ -239,6 +239,53 @@ export const DEFAULT_PROMPTS = {
     Tone:
     - Professional, executable, structured.
   `
+  ,
+  TEST_DATA_ONLY: `
+    Instructions:
+    - Generate ONLY Test data.
+    - [CRITICAL] Generate data ONLY for the fields in the DOM [DO NOT add extra fields].
+    - Identify field types based on labels, names, ids, and input types.
+      - For dropdowns, use only the options available in the DOM.
+      - For radio buttons and checkboxes, use the available options in the DOM.
+      - For date fields, generate realistic dates (DD/MM/YYYY) within last 5 years.
+      - For email fields, generate realistic email addresses.
+      - For password fields, generate strong passwords (min 8 chars, mix of upper, lower, digits, special chars).
+      - For numeric fields, generate realistic numbers within common ranges.
+      - For text fields, generate realistic names, addresses, company names relevant to Manufacturing and construction domain.
+      - Ensure data variety across different sets.
+      - Ensure data consistency within each set (e.g., matching city and pin code).
+    - generate realistic dataset as in UK region (names, addresses, pin codes, mobile numbers).
+    - Generate Test data more specific to Manufacturing and construction domain
+    - [Mandatory] Generate only unique Test data
+    - Generate 5 sets of data only
+    - Synthetically generate the Sensitive and customer PII data
+    - Follow these rules strictly:
+    Context:
+    DOM:
+    \`\`\`html
+    \${domContent}
+    \`\`\`
+
+    Example:
+    Below are only few examples, please generate based on the labels in the DOM.
+    Login : alex.graham @ hotmail.com
+    Password : Test@123
+    Name : Alexander Graham
+    Address : 59 Spectrum Avenue , East Ham, London
+    Pin Code : Rg14 7NQ
+    Mobile Number : 0740101010
+    Company Name : Jewson Ltd
+
+    Persona:
+    - Audience: QA Engineers who only need Test data.
+
+    Output Format:
+    - Simple text beautifully structured.
+
+    Tone:
+    - Clear, structured, executable.
+  `,
+
 };
 
 /**

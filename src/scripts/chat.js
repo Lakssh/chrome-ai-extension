@@ -561,9 +561,10 @@ class ChatUI {
         // Extract selected generation modes
         const isFeatureChecked = checkboxes.some(box => box.value === 'FEATURE');
         const isPageChecked = checkboxes.some(box => box.value === 'PAGE');
+        const isDataChecked = checkboxes.some(box => box.value === 'DATA');
 
         // Validate that at least one option is selected
-        if (!isFeatureChecked && !isPageChecked) {
+        if (!isFeatureChecked && !isPageChecked && !isDataChecked) {
             console.warn('No generation mode selected. Defaulting to Page Object generation.');
             // Default fallback to page object generation
             if (this.isJavaSelenium(lang, eng)) {
@@ -595,7 +596,10 @@ class ChatUI {
             else {
                 this.addUnsupportedLanguageMessage(lang, eng);
             }
-        } 
+        } else if (isDataChecked) {
+            // Test data only - currently not supported separately
+            promptKeys.push('TEST_DATA_ONLY');
+        }
 
         return promptKeys;
     }
@@ -659,11 +663,6 @@ class ChatUI {
             });
         }
     }
-
-
-
-
-
 
 
     async resetChat() {

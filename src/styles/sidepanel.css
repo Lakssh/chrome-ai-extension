@@ -366,7 +366,7 @@ button:disabled {
 .markdown-content {
   font-size: 14px;
   line-height: none;
-  color: var(--color-white);
+  color: var(--color-accent);
   height: 100%;
 }
 
