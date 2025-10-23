@@ -589,10 +589,13 @@ class ChatUI {
             // Page object only
             if (this.isJavaSelenium(lang, eng)) {
                 promptKeys.push('SELENIUM_JAVA_PAGE_ONLY');
-            } else {
+            }else if (this.isTypeScriptPlaywright(lang, eng)) {
+                promptKeys.push('PLAYWRIGHT_TYPESCRIPT_PAGE_ONLY');
+            } 
+            else {
                 this.addUnsupportedLanguageMessage(lang, eng);
             }
-        }
+        } 
 
         return promptKeys;
     }
@@ -610,6 +613,10 @@ class ChatUI {
 
     isPythonSelenium(language, engine) {
         return language === 'python' && engine === 'selenium';
+    }
+
+    isTypeScriptPlaywright(language, engine) {
+        return language === 'ts' && engine === 'playwright';
     }
 
     // typescript/selenium not supported by the selenium webdriver

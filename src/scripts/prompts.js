@@ -42,6 +42,59 @@ export const DEFAULT_PROMPTS = {
     - Clean, maintainable, enterprise-ready.
   `,
 
+    /**
+   * Selenium Java Page Object Prompt (No Test Class)
+   */
+  PLAYWRIGHT_TYPESCRIPT_PAGE_ONLY: `
+    Instructions:
+    - Generate ONLY a Playwright Typescript Page Object Class (no test code).
+    - Add JavaDoc for methods & class.
+    - Use Plawright 1.56 compatible imports.
+    - Use meaningful method names.
+    - Do NOT include explanations or test code.
+    - Follow Locator Strategies
+        - Prefer locators in below hierarchy
+            - Use ID only when it is unique and do not have numbers in it
+            - Use NAME only ID is not present and when it is unique
+            - Prefer user-facing attributes to XPath or CSS selectors
+            - Use Data Attributes for Stability
+        - use Playwright's built in locators. Locators come with auto waiting and retry-ability
+        - Use chaining and filtering
+        - Use locators that are resilient to changes in the DOM
+        - Avoid Brittle Selectors
+        - Use Regular Expressions for Flexible Text Matching
+        - Keep Selectors Short and Readable
+    - Use auto-healing selectors where applicable
+
+    Context:
+    DOM:
+    \`\`\`html
+    \${domContent}
+    \`\`\`
+
+    Example:
+    \`\`\`typescript
+    package com.testleaf.pages;
+
+    /**
+     * Page Object for Component Page
+     */
+    public class ComponentPage {
+        // Add methods as per the DOM
+    }
+    \`\`\`
+
+    Persona:
+    - Audience: Automation engineer focusing on maintainable POM structure.
+
+    Output Format:
+    - A single typescript class inside a \`\`\`typescript\`\`\` block.
+
+    Tone:
+    - Clean, maintainable, enterprise-ready.
+  `,
+
+
   /**
    * Cucumber Feature File Only Prompt
    */
@@ -216,4 +269,5 @@ export const CODE_GENERATOR_TYPES = {
   SELENIUM_JAVA_PAGE_ONLY: 'Selenium-Java-Page-Only',
   CUCUMBER_ONLY: 'Cucumber-Only',
   CUCUMBER_WITH_SELENIUM_JAVA_STEPS: 'Cucumber-With-Selenium-Java-Steps',
+  PLAYWRIGHT_TYPESCRIPT_PAGE_ONLY: 'Playwright-Typescript-Page-Only',
 };
