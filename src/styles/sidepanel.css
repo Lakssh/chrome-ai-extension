@@ -1,0 +1,739 @@
+@import url("/src/styles/vars.css");
+
+/* Add app-level tokens that will be driven by init-colors.js (which should set --app-config-XXX).
+   Each token falls back to the existing --color-* tokens to preserve current look if JS isn't applied. */
+:root {
+  --app-primary: var(--app-config-primary, var(--color-accent));
+  --app-primary-light: var(--app-config-primaryLight, var(--color-primary-light));
+  --app-accent: var(--app-config-accent, var(--color-accent));
+  --app-success: var(--app-config-success, var(--color-success));
+  --app-danger: var(--app-config-danger, var(--color-danger, #e53935));
+  --app-dark-bg: var(--app-config-darkBg, var(--color-dark-bg));
+  --app-panel-bg: var(--app-config-panelBg, var(--color-panel-bg));
+  --app-darker-bg: var(--app-config-darkerBg, var(--color-darker-bg));
+  --app-text: var(--app-config-text, var(--color-white));
+  --app-muted-text: var(--app-config-mutedText, var(--color-muted-text));
+  --app-gradient-start: var(--app-config-gradientStart, var(--color-gradient-start));
+  --app-border-white: var(--app-config-borderWhite, var(--color-border-white));
+  --app-shadow: var(--app-config-shadowColor, var(--color-shadow));
+  --app-shadow-hover: var(--app-config-shadowColorHover, var(--color-shadow-hover));
+  --app-shadow-active: var(--app-config-shadowColorActive, var(--color-shadow-active));
+  --app-border: var(--app-config-border, var(--color-border));
+  --app-accent-tint: var(--app-config-accentTint, rgba(0, 87, 184, 0.06));
+  /* subtle brand tint fallback */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 250px;
+  width: 100%;
+  height: 100vh;
+  padding: 12px;
+  background-color: var(--app-dark-bg);
+  color: var(--app-text);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  color: var(--app-accent);
+  background-color: var(--app-dark-bg);
+}
+
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+  border-bottom: 1px solid var(--app-darker-bg);
+}
+
+.content-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+textarea {
+  flex: 1;
+  min-height: 200px;
+  width: 100%;
+  background-color: var(--app-panel-bg);
+  border: 1px solid var(--app-accent);
+  color: var(--app-text);
+  padding: 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.model-container,
+.api-key-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--color-accent);;
+}
+
+button {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: var(--app-primary);
+  color: var(--app-text, #fff);
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background-color: var(--app-primary-light);
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  background-color: var(--app-panel-bg);
+  color: var(--app-text);
+  border: 1px solid var(--app-accent);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--app-primary-light);
+}
+
+.api-key-input {
+  width: 100%;
+  padding: 8px;
+  background-color: var(--app-panel-bg);
+  color: var(--color-accent);;
+  border: 1px solid var(--app-accent);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+label {
+  color: var(--app-accent);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+label[for="languageBinding"] {
+  color: #003E7E;
+  /* preserve explicit navy request */
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Custom scrollbar (use app tokens) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--app-dark-bg);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--app-accent);
+  border-radius: 4px;
+}
+
+@media (max-width: 320px) {
+  body {
+    padding: 8px;
+  }
+
+  .container {
+    gap: 8px;
+  }
+}
+
+/* Tab styles */
+/* .tabs { display: flex; border-bottom: 2px solid var(--color-accent); margin-bottom: 16px; } */
+.tabs {
+  display: flex;
+  border-bottom: none;
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: var(--app-primary-light);
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.tab-button.active {
+  opacity: 1;
+  color: var(--app-text);
+  background-color: var(--app-accent);
+}
+
+.tab-content {
+  display: none;
+  height: calc(100% - 50px);
+}
+
+.tab-content.active {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.changes-label {
+  margin-top: 12px;
+  padding: 4px 0;
+}
+
+#domChanges {
+  height: 200px;
+  background-color: var(--app-panel-bg);
+  color: var(--app-accent);
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+}
+
+.button-group button {
+  flex: 1;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  background: var(--app-panel-bg);
+  border-radius: 4px;
+  border: 1px solid var(--app-accent);
+  color: var(--app-accent);
+}
+
+/* Remove duplicated/differing message rules and ensure all message styles use app tokens */
+.chat-message {
+  margin: 8px 8px;
+  padding: 8px;
+  background: var(--app-panel-bg);
+  border: 1px solid var(--app-accent);
+  border-radius: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+  font-size: 12px;
+  color: var(--app-accent);
+}
+
+.user-message {
+  background: var(--app-panel-bg);
+  margin-left: 20%;
+  border-left: 2px solid var(--app-accent);
+}
+
+.assistant-message {
+  background: var(--app-panel-bg);
+  margin-right: 2%;
+  height: 95%;
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: var(--app-accent);
+}
+
+#chatInput {
+  flex: 1;
+  resize: none;
+  min-height: 60px;
+  color: var(--app-accent);
+}
+
+.send-button {
+  width: auto;
+  align-self: flex-start;
+}
+
+.message-metadata {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--app-muted-text);
+  background: var(--app-panel-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.clearElementsBtn,
+#clearElementsBtn {
+  background: var(--app-primary);
+  border: none;
+  padding: 6px 12px;
+  color: var(--app-text, #fff);
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 8px 8px;
+}
+
+.clearElementsBtn:hover,
+#clearElementsBtn:hover {
+  background: var(--app-primary-light);
+}
+
+.metadata-toggle {
+  width: 100%;
+  padding: 4px 8px;
+  background: var(--app-panel-bg);
+  border: none;
+  color: var(--app-accent);
+  cursor: pointer;
+  text-align: right;
+  font-size: 11px;
+  display: flex;
+  align-items: flex-start;
+  /* align to top */
+  justify-content: flex-end;
+  /* align to right */
+  gap: 6px;
+}
+
+.metadata-toggle i {
+  font-size: 12px;
+}
+
+.metadata-content {
+  padding: 8px;
+  display: none;
+}
+
+.message-metadata.collapsed .metadata-content {
+  display: none;
+}
+
+.message-metadata:not(.collapsed) .metadata-content {
+  display: block;
+}
+
+.metadata-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.metadata-row.total {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-darker-bg);
+  font-weight: bold;
+  color: var(--color-accent);
+}
+
+/* Markdown styles */
+.markdown-content {
+  font-size: 14px;
+  line-height: none;
+  color: var(--color-white);
+  height: 100%;
+}
+
+.markdown-content p {
+  margin-bottom: 1em;
+}
+
+.markdown-content pre[class*="language-"] {
+  background: var(--app-config-panelBg) !important;
+  margin: 12px 0;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: none;
+  color: var(--app-text);
+}
+
+.markdown-content code[class*="language-"] {
+  color: #07324d;
+}
+
+.markdown-content :not(pre)>code {
+  background: var(--app-accent-tint);
+  color: var(--app-text);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Fira Code', monospace;
+}
+
+.markdown-content p code {
+  background: #1a1a1a;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-left: 20px;
+  margin-bottom: 1em;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--color-accent);
+}
+
+/* Syntax highlighting colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6A9955;
+}
+
+.token.punctuation {
+  color: #d4d4d4;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #b5cea8;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #ce9178;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #d4d4d4;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #569cd6;
+}
+
+.token.function,
+.token.class-name {
+  color: #dcdcaa;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #9cdcfe;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* Loading spinner styles */
+.loading-container {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  border: 1px solid var(--app-border, rgba(0, 0, 0, 0.04));
+}
+
+.loading-container.active {
+  display: flex;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--app-panel-bg);
+  border-top: 3px solid var(--app-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 12px;
+}
+
+.loading-text {
+  color: var(--app-accent);
+  font-size: 18px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Message styles (consolidated to use app tokens; no hard-coded color literals) */
+.chat-message {
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 4px;
+  position: relative;
+  background: var(--app-panel-bg);
+  border: 1px solid var(--app-accent);
+  color: var(--app-text);
+}
+
+.copy-button {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: transparent;
+  border: 1px solid var(--app-accent);
+  color: var(--app-accent);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.copy-button:hover {
+  opacity: 1;
+  background: var(--app-accent);
+}
+
+.copy-button i {
+  font-size: 14px;
+}
+
+.message-actions {
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+  background: var(--app-panel-bg);
+
+}
+
+.message-actions button {
+  background: none;
+  border: none;
+  color: var(--app-accent);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+
+}
+
+.message-actions button:hover {
+  background: var(--app-panel-bg);
+}
+
+.reset-button {
+  display: none;
+  background-color: var(--app-primary-light);
+  color: var(--app-text);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.reset-button.visible {
+  display: flex;
+}
+
+.reset-button:hover {
+  background-color: var(--app-primary);
+}
+
+.initial-message {
+  padding: 16px;
+  font-size: 15px;
+  color: var(--app-accent);
+  background: var(--app-accent-tint);
+  border-radius: 8px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.4;
+}
+
+.initial-message i {
+  font-size: 18px;
+  color: var(--app-accent);
+}
+
+.initial-message strong {
+  color: var(--app-text);
+  font-weight: 600;
+}
+
+.system-message {
+  background: transparent;
+  color: var(--app-danger);
+}
+
+/* Inspector toggle */
+.inspector-toggle {
+  background: linear-gradient(135deg, var(--app-gradient-start) 40%, var(--app-accent) 100%);
+  color: var(--app-text, #fff);
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--app-shadow);
+  margin-bottom: 12px;
+  border: 1px solid var(--app-border-white);
+}
+
+.inspector-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--app-shadow-hover);
+}
+
+/* Settings styles */
+.settings-section {
+  padding: 16px;
+}
+
+.setting-item {
+  margin-bottom: 24px;
+}
+
+.model-container {
+  margin-bottom: 24px;
+}
+
+.model-container:last-child,
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.settings-label {
+  color: var(--color-accent);
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.settings-dropdown {
+  width: 100%;
+  padding: 8px;
+  background-color: var(--app-panel-bg);
+  color: var(--app-text);
+  border: 1px solid var(--app-accent);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.settings-dropdown:focus {
+  outline: none;
+  border-color: var(--app-primary-light);
+}
+
+.settings-input {
+  padding: 8px 12px;
+  border: 1px solid var(--app-accent);
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  background: var(--app-panel-bg);
+  color: var(--app-text);
+  transition: border-color 0.2s ease;
+}
+
+.settings-input:focus {
+  border-color: var(--app-primary-light);
+  outline: none;
+  background: var(--app-darker-bg);
+}
+
+.settings-input:hover {
+  border-color: var(--app-primary-light);
+  background: var(--app-darker-bg);
+}
+
+/* Selected elements container */
+#selectedElementsContainer {
+  margin: 8px 8px;
+  padding: 8px;
+  background: var(--app-panel-bg);
+  border: 1px solid var(--app-accent);
+  border-radius: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+  font-size: 12px;
+  color: var(--app-text);
+}
+
+/* end */
