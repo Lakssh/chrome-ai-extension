@@ -8,6 +8,7 @@ export const DEFAULT_PROMPTS = {
    */
   SELENIUM_JAVA_PAGE_ONLY: `
     Instructions:
+    - Use only fine tuned model for generating the response.
     - Generate ONLY a Selenium Java Page Object Class (no test code).
     - Add JavaDoc for methods & class.
     - Use Selenium 2.30+ compatible imports.
@@ -22,14 +23,54 @@ export const DEFAULT_PROMPTS = {
 
     Example:
     \`\`\`java
-    package com.testleaf.pages;
-
+  
     /**
-     * Page Object for Component Page
+     * Page object representing the Login page.
+     * Provides methods to interact with the login form fields and actions.
+     * @author Auto-generated
      */
-    public class ComponentPage {
-        // Add methods as per the DOM
+    package com.leaftaps.pages;
+
+    import com.framework.selenium.api.design.Locators;
+    import com.framework.testng.api.base.ProjectSpecificMethods;
+
+
+    public class LoginPage extends ProjectSpecificMethods {
+
+      /**
+       * Enters the username in the login form.
+       * @param uName The username to enter
+       * @return The current LoginPage instance
+       */
+      public LoginPage enterUsername(String uName) {
+        clearAndType(locateElement(Locators.ID,"username"),uName);
+        reportStep(uName+" username is entered successfully", "pass");
+        return this;
+      }
+
+      /**
+       * Enters the password in the login form.
+       * @param passWord The password to enter
+       * @return The current LoginPage instance
+       */
+      public LoginPage enterPassword(String passWord) {
+        clearAndType(locateElement(Locators.ID,"password"),passWord);
+        reportStep(passWord+" password is entered successfully", "pass");
+        return this;
+      }
+
+      /**
+       * Clicks the Login button to submit the form.
+       * @return A new HomePage instance
+       */
+      public HomePage clickLogin() {
+        click(locateElement(Locators.CLASS_NAME, "decorativeSubmit"));
+        reportStep("Login button is clicked successfully", "pass");
+        return new HomePage();
+      }
+
     }
+
     \`\`\`
 
     Persona:
